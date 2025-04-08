@@ -25,8 +25,12 @@ from thermocouple_reader import ThermocoupleReader
 reader = ThermocoupleReader("/dev/ttyUSB0")
 reader.open()
 
-Channel1, Channel2, Channel3, Channel4 = reader.read_temperatures()
-print(f"Channel 1: {Channel1}°C, Channel 2: {Channel2}°C, Channel 3: {Channel3}°C, Channel 4: {Channel4}°C")
+temps = reader.read_temperatures()
+if temps:
+    ch1, ch2, ch3, ch4 = temps
+    print(f"Channel 1: {ch1}°C, Channel 2: {ch2}°C, Channel 3: {ch3}°C, Channel 4: {ch4}°C")
+else:
+    print("No data (device not ready?)")
 
 reader.close()
 ```
