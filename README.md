@@ -17,22 +17,18 @@ You can install this package directly from GitHub:
 pip install git+https://github.com/Steffen-W/Python-ThermocoupleReader.git
 ```
 
-## Requirements
+## Example
 
-- Python 3.x  
-- [pyserial](https://pypi.org/project/pyserial/)
+```python
+from thermocouple_reader import ThermocoupleReader
 
-Install the required library with:
+reader = ThermocoupleReader("/dev/ttyUSB0")
+reader.open()
 
-```bash
-pip install pyserial
-```
+Channel1, Channel2, Channel3, Channel4 = reader.read_temperatures()
+print(f"Channel 1: {Channel1}°C, Channel 2: {Channel2}°C, Channel 3: {Channel3}°C, Channel 4: {Channel4}°C")
 
-## Usage
-Run the script:
-
-```bash
-python thermocouple_reader.py
+reader.close()
 ```
 
 Example Output
@@ -50,5 +46,5 @@ reader = ThermocoupleReader(port='/dev/ttyUSB0', baudrate=9600)
 ```
 
 Default values:
-- Port: /dev/ttyUSB0
+- Port: /dev/ttyUSB0 or COM1
 - Baudrate: 9600
