@@ -9,6 +9,14 @@ This Python script reads temperature data from a 4-channel thermocouple module v
 
 The code is based on [https://cd50.net/37/](https://cd50.net/37/) and also works under linux and windows.
 
+## Installation
+
+You can install this package directly from GitHub:
+
+```bash
+pip install git+https://github.com/Steffen-W/Python-ThermocoupleReader.git
+```
+
 ## Requirements
 
 - Python 3.x  
