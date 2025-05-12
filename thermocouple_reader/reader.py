@@ -1,6 +1,8 @@
 import serial
 import time
 import logging
+import platform
+import sys
 
 logging.basicConfig(
     level=logging.INFO,
@@ -8,11 +10,19 @@ logging.basicConfig(
     datefmt="%H:%M:%S",
 )
 
+def get_default_port():
+    os_name = platform.system()
+    if os_name == "Windows":
+        return "COM3"
+    elif os_name == "Darwin":
+        return "/dev/tty.usbserial"
+    else:
+        return "/dev/ttyUSB0"
 
 class ThermocoupleReader:
 
-    def __init__(self, port="/dev/ttyUSB0", baudrate=9600, reconnect_delay=1):
-        self.port = port
+    def __init__(self, port=None, baudrate=9600, reconnect_delay=1):
+        self.port = port or get_default_port()
         self.baudrate = baudrate
         self.serial = None
         self.reconnect_delay = reconnect_delay
@@ -72,10 +82,10 @@ class ThermocoupleReader:
             self.open()
             return None
 
-
-# Example usage
 if __name__ == "__main__":
-    reader = ThermocoupleReader("/dev/ttyUSB0")
+    # Allow port override from command line
+    port = sys.argv[1] if len(sys.argv) > 1 else None
+    reader = ThermocoupleReader(port)
     reader.open()
 
     try:
